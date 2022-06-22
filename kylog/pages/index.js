@@ -17,6 +17,30 @@ const posts = [
 const Home = () => {
   return (
     <div className="container mx-auto px-10 mb-8">
+
+      <div className='background'>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
       <Head>
         <title> Kaylog </title>
         <link rel="icon" href="/favicon.ico" />

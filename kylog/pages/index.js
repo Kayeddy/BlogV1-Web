@@ -2,19 +2,9 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { PostCard, Categories, PostWidget } from '../components'
+import { getPosts } from '../services'
 
-const posts = [
-  {
-    title: 'Learning React web development' ,
-    excerpt: '...'
-  },
-  {
-    title: 'Learning Next.Js web development' ,
-    excerpt: '...'
-  }
-]
-
-const Home = () => {
+export default function Home({ posts }) {
   return (
     <div className="container mx-auto px-10 mb-8">
 
@@ -48,7 +38,9 @@ const Home = () => {
       <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
         <div className='lg:col-span-8 col-span-1'>
           {
-            posts.map((post) => ( <PostCard post = {post} key= {post.title}/> ))
+            posts.map((post) => ( 
+              <PostCard post = {post.node} key= {post.title}/> 
+            ))
           }
         </div>
 
@@ -68,4 +60,17 @@ const Home = () => {
   )
 }
 
-export default Home
+//As we would usually do in the use effect, we can fetch our data using this method when using NextJs getStaticProps method, since it allows us to
+//get the information as props and access them directly from our component (we can see how this works above when calling this Home component's props)
+ export async function getStaticProps() {
+
+  const fetchPosts = getPosts;
+
+  const posts = (await fetchPosts()) || [];
+
+  return {
+    props:  { posts }
+  }
+
+}
+

@@ -8,7 +8,7 @@ const graphqlApi = 'https://api-ca-central-1.graphcms.com/v2/cl4q0a7gl2zck01w7cy
 export const getPosts = async() => {
 
     const query = gql`
-        query MyQuery {
+        query myQuery {
                 postsConnection {
                     edges {
                       node {
@@ -39,4 +39,52 @@ export const getPosts = async() => {
 
     const result = await request(graphqlApi, query);
     return result.postsConnection.edges;
+}
+
+export const getRecentPosts = async() => {
+  const query = gql`
+    query getPostDetails() {
+      post(
+        orderBy: createdAt_ASC
+        last: 3
+      )
+      {
+        title
+        featuredImage {
+          url
+        }
+        createdAt
+        slug
+      }
+    }
+  `
+
+  const result = await request(graphqlApi, query);
+  return result.posts;
+}
+
+//We use this method to display articles that include some of the categories that we are aiming for except for the current article we
+// are viewing. We use last: 3 to get the last 3 results.
+export const getSimilarPosts = async() => {
+  const query = gql`
+    query getPostDetails($slug: String!, $categories: [String!]) {
+      post(
+        where: {
+          slug_not: $slug, AND: {categories_some: {slug_in: $categories}}
+        }
+        last: 3
+      )
+      {
+        title
+        featuredImage {
+          url
+        }
+        createdAt
+        slug
+      }
+    }
+  `
+
+  const result = await request(graphqlApi, query);
+  return result.posts;
 }

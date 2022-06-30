@@ -1,13 +1,14 @@
 import React from 'react'
 import moment from 'moment'
 import Link from 'next/link'
+import * as AiIcons from 'react-icons/ai'
 
 const PostCard = ({ post }) => {
   console.log(post)
   return (
     <div className='bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
-      <div className='relative overflow-hidden shadow-md pb-80 mb-6 h-fit-content'>
-        <img src= {post.featuredImage.url} alt= {post.title} className= 'object-top absolute h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg p-50' />
+      <div className='relative overflow-hidden shadow-md pb-80 mb-6'>
+        <img src= {post.featuredImage.url} alt= {post.title} className= 'object-top absolute h-80 w-full object-fit shadow-lg rounded-t-lg lg:rounded-lg p-50 flex' />
       </div>
       <h1 className='transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold'> 
         <Link href={`/post/${post.slug}`}>
@@ -26,12 +27,30 @@ const PostCard = ({ post }) => {
               </p>
             </>
           ))}
-        
-        <div className='font-medium text-gray-700'>
-
-        </div>
+          
         </div>
 
+        <div className='flex font-medium text-gray-700 text-center justify-center items-center'>
+          <AiIcons.AiFillCalendar className='inline h-7 mr-1'/>
+          <span>
+            {
+              moment(post.createdAt).format('MMM DD, YYYY')
+            }
+          </span>
+        </div>
+
+      </div>
+
+      <p className='text-center text-lg text-gray-7 font-normal px-4 lg:p-20 mb-8'>
+        {post.excerpt}
+      </p>
+
+      <div className='text-center'>
+        <Link href={`/post/${post.slug}`}>
+          <span className='transition duration-500 transform hover:-translate-y-1 inline-block bg-pink-600 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer'>
+            Continue reading
+          </span>
+        </Link>
       </div>
 
     </div>

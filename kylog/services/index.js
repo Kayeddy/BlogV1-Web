@@ -8,7 +8,7 @@ const graphqlApi = 'https://api-ca-central-1.graphcms.com/v2/cl4q0a7gl2zck01w7cy
 export const getPosts = async() => {
 
     const query = gql`
-        query myQuery {
+        query getAllPosts {
                 postsConnection {
                     edges {
                       node {
@@ -41,10 +41,46 @@ export const getPosts = async() => {
     return result.postsConnection.edges;
 }
 
+export const getPostDetails = async( slug ) => {
+
+  const query = gql`
+    query getPostDetails($slug: String!) {
+        post(where: { slug: $slug }) {
+          authors {
+          bio
+          id
+          name
+          photo {
+            url
+          }
+        }
+        createdAt
+        slug
+        title
+        excerpt
+        featuredImage {
+          url
+        }
+        categories {
+          name 
+          slug
+        }
+        content {
+          raw
+        }
+      }  
+    }
+                    
+  `
+
+  const result = await request(graphqlApi, query, { slug });
+  return result.post;
+}
+
 export const getRecentPosts = async() => {
   const query = gql`
     query getPostDetails() {
-      post(
+      posts(
         orderBy: createdAt_ASC
         last: 3
       )
@@ -63,12 +99,12 @@ export const getRecentPosts = async() => {
   return result.posts;
 }
 
-//We use this method to display articles that include some of the categories that we are aiming for except for the current article we
+//We use this method to display articles(posts) that include some of the categories that we are aiming for except for the current article we
 // are viewing. We use last: 3 to get the last 3 results.
-export const getSimilarPosts = async() => {
+export const getSimilarPosts = async(categories, slug) => {
   const query = gql`
     query getPostDetails($slug: String!, $categories: [String!]) {
-      post(
+      posts(
         where: {
           slug_not: $slug, AND: {categories_some: {slug_in: $categories}}
         }
@@ -85,6 +121,21 @@ export const getSimilarPosts = async() => {
     }
   `
 
-  const result = await request(graphqlApi, query);
+  const result = await request(graphqlApi, query, {categories, slug});
   return result.posts;
 }
+
+export const getCategories = async() => {
+  const query = gql`
+    query getCategories {
+      categories {
+        name
+        slug
+      }
+    }
+  `
+
+  const result = await request(graphqlApi, query);
+  return result.categories;
+}
+

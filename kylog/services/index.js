@@ -139,3 +139,69 @@ export const getCategories = async() => {
   return result.categories;
 }
 
+export const getPostByAuthor = async(author_id) => {
+  
+  const query = gql` 
+    query getPostXauthor($author_id: ID!) {
+      posts(where: {authors_every: {id: $author_id}}) 
+      {
+        title
+        createdAt
+        slug
+        excerpt
+        featuredImage {
+        url
+        }
+      }
+    }
+  `
+  const result = await request(graphqlApi, query, {author_id});
+  return result.posts;
+}
+
+export const getAuthors = async() => {
+
+  const query = gql`
+      query getAllAuthors 
+      {
+        authorsConnection {
+          edges {
+            node {
+              name
+              id
+              bio
+              photo {
+                url
+              }
+              posts {
+                title
+                excerpt
+              }
+            }
+          }
+        }
+      }
+    `
+
+  const result = await request(graphqlApi, query);
+  return result.authorsConnection.edges;
+}
+
+export const getAuthorDetails = async( id ) => {
+
+  const query = gql`
+    query getAuthorDetails($id: ID!) {
+      author(where: {id: $id}) {
+        bio
+        name
+        photo {
+          url
+        }
+      }  
+    }
+                    
+  `
+
+  const result = await request(graphqlApi, query, { id });
+  return result.author;
+}

@@ -10,7 +10,7 @@ const PostCard = ({ post }) => {
       <div className='relative overflow-hidden shadow-md pb-80 mb-6 flex justify-center'>
         <img src= {post.featuredImage.url} alt= {post.title} height = '480rem' width= '390rem' className= 'object-top absolute object-fit shadow-lg rounded-t-lg lg:rounded-lg p-50' />
       </div>
-      <h1 className='transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold'> 
+      <h1 className='transition duration-500 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold'> 
         <Link href={`/post/${post.slug}`}>
           {post.title}
         </Link>
@@ -20,12 +20,14 @@ const PostCard = ({ post }) => {
         <div className='flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8'>
 
           {post.authors.map((author) => (
-            <>
-              <img src= { author.photo.url } alt= { author.name } key= { author.id } width= '30px' height= '30px' className='align-middle rounded-full' />
-              <p className='inline align-middle text-gray-700 ml-2 text-lg'>
-                { author.name }
-              </p>
-            </>
+                <>
+                  <img src= { author.photo.url } alt= { author.name } key= { author.id } width= '30px' height= '30px' className='align-middle rounded-full' />
+                  <p className='inline align-middle text-gray-700 ml-2 text-lg cursor-pointer'>
+                  <Link href = { `/author/${author.id}` } alt = { author.name }>
+                    { author.name }
+                  </Link>
+                  </p>
+                </>
           ))}
           
         </div>

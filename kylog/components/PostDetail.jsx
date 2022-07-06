@@ -57,12 +57,12 @@ const PostDetail = ({ post }) => {
                     <div className='flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8'>
 
                         {post.authors.map((author) => (
-                            <>
-                                <img src= {author.photo.url} alt= { author.name } key= { author.id } width= '30px' height= '30px' className='align-middle rounded-full' />
-                                <p className='inline align-middle text-gray-700 ml-2 text-lg'>
-                                    { author.name }
-                                </p>
-                            </>
+                            <div key= { author.id } className = 'flex align-center'>
+                              <img src= {author.photo.url} alt= { author.name } width= '30px' height= '30px' className='align-middle rounded-full' />
+                              <p className='inline align-middle text-gray-700 ml-2 text-lg'>
+                                { author.name }
+                              </p>
+                            </div>
                         ))}
                     
                     </div>

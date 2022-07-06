@@ -205,3 +205,12 @@ export const getAuthorDetails = async( id ) => {
   const result = await request(graphqlApi, query, { id });
   return result.author;
 }
+
+export const submitComment = async(comment) => {
+  const result = await fetch('/api/comments', {
+    method: 'POST', 
+    body: JSON.stringify(comment), 
+  })
+
+  return result.json;
+}

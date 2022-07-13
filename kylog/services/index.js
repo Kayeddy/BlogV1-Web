@@ -3,7 +3,7 @@
 
 import {request, gql } from 'graphql-request' 
 
-const graphqlApi = 'https://api-ca-central-1.graphcms.com/v2/cl4q0a7gl2zck01w7cyyt93jj/master';
+const graphqlApi = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
 export const getPosts = async() => {
 

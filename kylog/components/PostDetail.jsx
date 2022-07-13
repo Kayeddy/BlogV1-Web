@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import Link from 'next/link'
 import * as AiIcons from 'react-icons/ai'
 
 const PostDetail = ({ post }) => {
@@ -60,7 +61,9 @@ const PostDetail = ({ post }) => {
                             <div key= { author.id } className = 'flex align-center'>
                               <img src= {author.photo.url} alt= { author.name } width= '30px' height= '30px' className='align-middle rounded-full' />
                               <p className='inline align-middle text-gray-700 ml-2 text-lg'>
+                              <Link href = { `/author/${author.id}` } alt = { author.name }>
                                 { author.name }
+                              </Link>
                               </p>
                             </div>
                         ))}

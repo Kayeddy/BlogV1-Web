@@ -6,9 +6,10 @@ import { submitComment } from '../../services';
 
 const graphqlApi = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-export default function comments(req, res) {
+export default async function comments(req, res) {
 
     const {name, email, comment, slug } = req.body
+
     const graphqlApi = new GraphQLClient(graphqlApi, {
         headers: {
             authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPHCMS_TOKEN}`

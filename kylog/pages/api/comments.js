@@ -1,23 +1,21 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { GraphQLClient, gql } from 'graphql'
-import { brotliDecompressSync } from 'zlib'
-import { submitComment } from '../../services';
+import { GraphQLClient, gql } from 'graphql-request'
+
 
 const graphqlApi = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
+const graphCmsToken = process.env.NEXT_PUBLIC_GRAPHCMS_TOKEN;
 
 export default async function comments(req, res) {
 
-    const {name, email, comment, slug } = req.body
-
-    const graphqlApi = new GraphQLClient(graphqlApi, {
+    const api = new GraphQLClient(graphqlApi, {
         headers: {
-            authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPHCMS_TOKEN}`
+            authorization: `Bearer ${graphCmsToken}`
         }
     })
     const query = gql`
         mutation createComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
-            createComment(data: {name: $name, email: $email, comment: $comment, post: { connect: { slug: $slug }}}) { id }
+            createComment(data: { name: $name, email: $email, comment: $comment, post: { connect: { slug: $slug }} }) { id }
         }
     `
 

@@ -209,6 +209,7 @@ export const getAuthorDetails = async( id ) => {
 export const submitComment = async(comment) => {
   const result = await fetch('/api/comments', {
     method: 'POST', 
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(comment), 
   })
 

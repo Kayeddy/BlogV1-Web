@@ -2,14 +2,17 @@ import React from 'react'
 
 import { getPosts, getPostDetails } from '../../services'
 
-import { PostDetail, Categories, PostWidget, Comments, CommentsForm } from '../../components'
+import { PostDetail, Categories, PostWidget, Comments, CommentsForm, PostByAuthorWidget } from '../../components'
 
 //Naming the file like this allows us to use dynamic routing. If the users input a text in the searchbar, Next js will
 //allow us to interpret the text as if it was a slug embedded in our website
 const PostDetails = ( { post } ) => {
   return (
     <div className='container mx-auto px-10 pb-8'>
-        {console.log(post)}
+        <div className='col-span-1 lg_col-span-8'>
+            <PostByAuthorWidget post = { post }/>
+        </div>
+
         <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
 
             <div className='col-span-1 lg:col-span-8'>

@@ -7,5 +7,7 @@ export  { default as PostDetail } from './PostDetail';
 export  { default as AuthorDetail } from './AuthorDetail';
 export  { default as Comments } from './Comments';
 export  { default as CommentsForm } from './CommentsForm';
+export  { default as PostByAuthorWidget } from './PostByAuthorWidget';
+
 
 

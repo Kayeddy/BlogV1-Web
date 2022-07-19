@@ -6,7 +6,7 @@ import { getRecentPosts, getSimilarPosts } from '../services';
 const PostWidget = ({ categories, slug }) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
 
-  //This useEffect will only change when the slug changes
+  //This useEffect will only change/act when the slug changes
   useEffect(() => {
     if(slug) {
       getSimilarPosts(categories, slug).then(res => setRelatedPosts(res));

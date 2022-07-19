@@ -143,7 +143,7 @@ export const getPostByAuthor = async(author_id) => {
   
   const query = gql` 
     query getPostXauthor($author_id: ID!) {
-      posts(where: {authors_every: {id: $author_id}}) 
+      posts(where: { authors_every: {id: $author_id} }) 
       {
         title
         createdAt
@@ -156,6 +156,30 @@ export const getPostByAuthor = async(author_id) => {
     }
   `
   const result = await request(graphqlApi, query, {author_id});
+  return result.posts;
+}
+
+export const getSimilarPostsByAuthor = async(authors, slug) => {
+  const query = gql`
+    query getPostDetails($authors: [ID!], $slug: String!) {
+      posts(
+        where: {
+          slug_not: $slug AND: authors_every: {id_in: $authors}
+        }
+      )
+      {
+        title
+        createdAt
+        slug
+        excerpt
+        featuredImage {
+        url
+        }
+      }
+    }
+  `
+
+  const result = await request(graphqlApi, query, {authors, slug});
   return result.posts;
 }
 

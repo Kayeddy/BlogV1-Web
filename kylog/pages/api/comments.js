@@ -8,7 +8,7 @@ const graphCmsToken = process.env.NEXT_PUBLIC_GRAPHCMS_TOKEN;
 
 export default async function comments(req, res) {
 
-    const api = new GraphQLClient(graphqlApi, {
+    const client = new GraphQLClient(graphqlApi, {
         headers: {
             authorization: `Bearer ${graphCmsToken}`
         }
@@ -19,8 +19,15 @@ export default async function comments(req, res) {
         }
     `
 
-    const result = await GraphQLClient.request(query, req.body)
+try {
 
-    return res.status(200).send(result)
+    const result = await client.request(query, req.body)
+    return res.status(200).send(result)  
+
+} catch (error) {
+ console.log(error)
+ return res.status(500).send(error)
+}
+  
 
 }

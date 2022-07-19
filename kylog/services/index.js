@@ -201,10 +201,23 @@ export const getAuthorDetails = async( id ) => {
     }
                     
   `
-
   const result = await request(graphqlApi, query, { id });
   return result.author;
 }
+
+export const getComments = async( slug ) => {
+  const query = gql`
+  query getComments($slug: String!) {
+    comments(where: { post: { slug: $slug } }) {
+      name
+      createdAt
+      comment
+    }
+  }
+`
+const result = await request(graphqlApi, query, { slug });
+return result.comments;
+} 
 
 export const submitComment = async(comment) => {
   const result = await fetch('/api/comments', {

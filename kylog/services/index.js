@@ -164,10 +164,18 @@ export const getSimilarPostsByAuthor = async(authors, slug) => {
     query getPostDetails($authors: [ID!], $slug: String!) {
       posts(
         where: {
-          slug_not: $slug AND: authors_every: {id_in: $authors}
+          slug_not: $slug, AND: {authors_every: {id_in: $authors}}
         }
       )
       {
+        authors {
+          bio
+          id
+          name
+          photo {
+            url
+          }
+        }
         title
         createdAt
         slug

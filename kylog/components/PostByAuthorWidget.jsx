@@ -14,7 +14,7 @@ const PostByAuthorWidget = ({ post }) => {
 
     useEffect(() => {
        getSimilarPostsByAuthor(authors, post.slug).then(res => setSimilarPosts(res))
-    }, [])
+    }, [post.slug])
     
     const responsiveCarousel = {
       superLargeDesktop: {

@@ -8,7 +8,7 @@ import { PostDetail, Categories, PostWidget, Comments, CommentsForm, PostByAutho
 //allow us to interpret the text as if it was a slug embedded in our website
 const PostDetails = ( { post } ) => {
   return (
-    <div className='container mx-auto px-10 pb-8'>
+    <div className='container mx-auto px-10 pb-8 mt-36'>
         <div className='col-span-1 lg_col-span-8'>
             <PostByAuthorWidget post = { post }/>
         </div>

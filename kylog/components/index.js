@@ -8,6 +8,8 @@ export  { default as AuthorDetail } from './AuthorDetail';
 export  { default as Comments } from './Comments';
 export  { default as CommentsForm } from './CommentsForm';
 export  { default as PostByAuthorWidget } from './PostByAuthorWidget';
+export  { default as PostsByAuthorPostcard } from './PostsByAuthorPostcard';
+
 
 
 

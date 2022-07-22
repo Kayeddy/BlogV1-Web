@@ -2,7 +2,9 @@ import { React, useState, useEffect } from 'react'
 import { getSimilarPostsByAuthor } from '../services'
 import moment from 'moment'
 import Link from 'next/link'
-import Slider from "react-slick";
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
+import { PostsByAuthorPostcard } from '../components'
 
 const PostByAuthorWidget = ({ post }) => {
 
@@ -14,47 +16,53 @@ const PostByAuthorWidget = ({ post }) => {
        getSimilarPostsByAuthor(authors, post.slug).then(res => setSimilarPosts(res))
     }, [])
     
-    const sliderSettings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1
+    const responsiveCarousel = {
+      superLargeDesktop: {
+        breakpoint: { max: 4000, min: 1024 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 1024, min: 768 },
+        items: 3,
+      },
+      tablet: {
+        breakpoint: { max: 768, min: 640 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 640, min: 0 },
+        items: 1,
+      },
     };
 
+    const customLeftArrow = (
+      <div className="absolute arrow-btn left-0 text-center py-3 cursor-pointer bg-pink-600 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+      </div>
+    );
+  
+    const customRightArrow = (
+      <div className="absolute arrow-btn right-0 text-center py-3 cursor-pointer bg-pink-600 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </div>
+    );
+
   return (
-    <Slider {...sliderSettings}>
-        {
-          similarPosts.map(post => (
+    <div className='mb-8'>
+      <Carousel ustomLeftArrow={customLeftArrow} customRightArrow={customRightArrow} responsive={responsiveCarousel} itemClass="px-4">
+            {
+              similarPosts.map(post => (
+
+                <PostsByAuthorPostcard key = { post.slug } post = { post }/>
             
-              <div key={post.slug} className=' bg-white w-fit p-5 rounded flex-column justify-center align-middle text-center'>
-                <p className='align-middle text-gray-700 ml-2 py-5'>
-                  {
-                    moment(post.createdAt).format('MMM DD, YYYY')
-                  }
-                </p>
-                <h2 className=''>
-                  {
-                    post.title
-                  }
-                </h2>
-                {
-                  post.authors.map(author => (
-                    <>
-                      <img src= { author.photo.url } alt= { author.name } key= { author.id } width= '30px' height= '30px' className='inline rounded-full' />
-                      <p className='inline align-middle text-gray-700 text-lg cursor-pointer'>
-                      <Link href = { `/author/${author.id}` } alt = { author.name }>
-                        { author.name }
-                      </Link>
-                      </p>
-                    </>
-                  ))
-                }
-              </div>
-            
-          ))
-        }
-    </Slider>
+              ))
+            }
+        </Carousel>
+    </div> 
   )
 }
 

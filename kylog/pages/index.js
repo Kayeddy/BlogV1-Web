@@ -1,13 +1,11 @@
-import { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import { PostCard, Categories, PostWidget } from '../components'
-import { getPosts, getAuthors } from '../services'
+import { getPosts } from '../services'
 
 
 export default function Home({ posts }) {
   return (
-    <div className="container mx-auto px-10 mb-8">
+    <div className="container mx-auto px-10 mb-8 mt-36 relative">
 
       <Head>
         <title> Kaylog </title>

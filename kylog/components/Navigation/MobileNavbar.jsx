@@ -17,7 +17,7 @@ const MobileNavbar = () => {
   return (
     <nav className= 'my-auto'>
          <div className="app__navbar-menu sm:contents lg:hidden md:hidden text-white ml-2">
-            <HiIcons.HiOutlineMenuAlt2 onClick={() => setToggle(true) } className= { `app__navbar-icon float-right ${toggle? 'hidden': ''}` } />
+            <HiIcons.HiOutlineMenuAlt2 onClick={ () => setToggle(true) } className= { `app__navbar-icon float-right ${toggle? 'hidden': ''}` } />
 
             {
               toggle && (
@@ -34,7 +34,7 @@ const MobileNavbar = () => {
                     {
                       categories.map((category) => (
                           <Link key={category.slug} href={`/category/${category.slug}`}>
-                              <span className=' block mt-2 text-white font-normal cursor-pointer'>
+                              <span className=' block mt-2 text-white font-normal cursor-pointer' onClick={ () => setToggle(false) }>
                                   {
                                       category.name
                                   }

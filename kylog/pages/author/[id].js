@@ -7,7 +7,6 @@ const Author = ({ author, authorPosts }) => {
     <div className='container mx-auto px-10 pb-8'>
       <div className='lg:grid-cols-12 gap-12'>
           <div className='col-span-1 lg:col-span-8'>
-            {console.log(authorPosts)}
               <AuthorDetail author = { author } posts = { authorPosts }/>
           </div>
 

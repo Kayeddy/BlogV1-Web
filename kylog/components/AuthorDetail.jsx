@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-const Author = ({ author, posts }) => {
+const AuthorDetail = ({ author, posts }) => {
   return (
     <div className='bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
 
@@ -47,4 +47,4 @@ const Author = ({ author, posts }) => {
   )
 }
 
-export default Author
+export default AuthorDetail

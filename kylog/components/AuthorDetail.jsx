@@ -4,7 +4,7 @@ import Link from 'next/link'
 const AuthorDetail = ({ author, posts }) => {
   return (
    
-    <div className='bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
+    <div className='bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8 mt-36'>
       <div className='relative overflow-hidden shadow-md mb-6 p-50 flex justify-center'>
         <img src= { author.photo.url } alt= { author.name } height = '200px' width= '200px' className= '' />
       </div>

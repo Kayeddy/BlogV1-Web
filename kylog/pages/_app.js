@@ -1,5 +1,5 @@
-import '../styles/Globals.scss'
-import '../styles/App.scss'
+import '../styles/globals.scss'
+import '../styles/app.scss'
 import React from 'react'
 import { Layout } from '../components'
 

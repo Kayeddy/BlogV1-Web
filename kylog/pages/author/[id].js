@@ -1,8 +1,16 @@
 import React from 'react'
 import { AuthorDetail } from '../../components'
+import { useRouter } from 'next/router'
 import { getAuthorDetails, getAuthors, getPostByAuthor } from '../../services'
+import { Loader } from '../../components'
 
 const Author = ({ author, authorPosts }) => {
+
+  const router = useRouter();
+    if(router.isFallback) {
+        return <Loader />
+    }
+
   return (
     <div className='container mx-auto px-10 pb-8'>
       <div className='lg:grid-cols-12 gap-12'>

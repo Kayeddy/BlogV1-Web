@@ -34,6 +34,6 @@ export async function getStaticPaths() {
 
   return {
       paths: author.map(({ node: { id }}) => ({ params: { id }})),
-      fallback: false
+      fallback: true
   }
 }

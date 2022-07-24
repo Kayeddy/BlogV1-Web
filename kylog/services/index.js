@@ -139,6 +139,43 @@ export const getCategories = async() => {
   return result.categories;
 }
 
+export const getCategoryPost = async (slug) => {
+  const query = gql`
+    query GetCategoryPost($slug: String!) {
+      postsConnection(where: {categories_some: {slug: $slug}}) {
+        edges {
+          cursor
+          node {
+            authors {
+              bio
+              name
+              id
+              photo {
+                url
+              }
+            }
+            createdAt
+            slug
+            title
+            excerpt
+            featuredImage {
+              url
+            }
+            categories {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const result = await request(graphqlApi, query, { slug });
+
+  return result.postsConnection.edges;
+};
+
 export const getPostByAuthor = async(author_id) => {
   
   const query = gql` 

@@ -1,15 +1,22 @@
-import React , { useState } from 'react'
+import React , { useState, useEffect } from 'react'
 import * as HiIcons from 'react-icons/hi';
 import './Navbar.module.scss'
+import { getCategories } from '../../services'
+import Link from 'next/link'
 import { motion } from 'framer-motion';
 
 const MobileNavbar = () => {
   
   const [toggle, setToggle] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+     getCategories().then(receivedCategories => setCategories(receivedCategories));
+  }, []);
 
   return (
     <nav className= 'my-auto'>
-         <div className="app__navbar-menu sm:contents lg:hidden md:hidden text-white ml-5">
+         <div className="app__navbar-menu sm:contents lg:hidden md:hidden text-white ml-2">
             <HiIcons.HiOutlineMenuAlt2 onClick={() => setToggle(true) } className= { `app__navbar-icon float-right ${toggle? 'hidden': ''}` } />
 
             {
@@ -23,16 +30,19 @@ const MobileNavbar = () => {
                   
                   <HiIcons.HiX onClick={ () => setToggle(false) } className='app__navbar-icon'/>
 
-                  <ul>
-
-                    {['home', 'about', 'work', 'skills', 'testimonials', 'contact'].map((item) =>
-                    (
-                      <li key= {item}>
-                          <a href={`#${item}`} onClick={() => setToggle(false)}> {item} </a>  
-                      </li>
-                    ))}
-
-                  </ul>
+                  <div className='flex-col p-2 justify-center align-center'>
+                    {
+                      categories.map((category) => (
+                          <Link key={category.slug} href={`/category/${category.slug}`}>
+                              <span className=' block mt-2 text-white font-normal cursor-pointer'>
+                                  {
+                                      category.name
+                                  }
+                              </span>
+                          </Link>
+                      ))
+                    }
+                  </div>
                 </motion.div>
               )
             }

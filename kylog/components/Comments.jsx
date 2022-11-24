@@ -3,12 +3,9 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 import parse from "html-react-parser";
 import { getComments } from "../services";
-import { useRouter } from "next/router";
 
 const Comments = ({ slug }) => {
   const [comments, setComments] = useState([]);
-
-  const router = useRouter();
 
   //function that fetches post comments when the slug changes
   useEffect(() => {
@@ -16,7 +13,7 @@ const Comments = ({ slug }) => {
       setComments(res);
     });
     console.log("UEA");
-  }, [router.pathname]);
+  }, [slug]);
 
   return (
     <h1>
